@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ArabicReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7b336326-e651-49e9-b920-46ddcfcc7cb6">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Company"/>
+	<parameter name="emp_id" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT e.arabic_name ,e.employee_code ,e.age ,e.mobile_number ,d.arabic_name as arabic_department_name
+FROM employee as e
+         join department d on e.department_id=d.id
+         
+ where $P{emp_id} is null or $P{emp_id} =e.id]]>
+	</queryString>
+	<field name="arabic_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="arabic_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="arabic_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="employee_code" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="employee_code"/>
+		<property name="com.jaspersoft.studio.field.label" value="employee_code"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="age" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="age"/>
+		<property name="com.jaspersoft.studio.field.label" value="age"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="mobile_number" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="mobile_number"/>
+		<property name="com.jaspersoft.studio.field.label" value="mobile_number"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="arabic_department_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="arabic_department_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="arabic_department_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="department"/>
+	</field>
+	<group name="arabic_name">
+		<groupExpression><![CDATA[$F{arabic_name}]]></groupExpression>
+	</group>
+	<group name="employee_code">
+		<groupExpression><![CDATA[$F{employee_code}]]></groupExpression>
+	</group>
+	<group name="age">
+		<groupExpression><![CDATA[$F{age}]]></groupExpression>
+	</group>
+	<group name="mobile_number">
+		<groupExpression><![CDATA[$F{mobile_number}]]></groupExpression>
+	</group>
+	<group name="arabic_department_name">
+		<groupExpression><![CDATA[$F{arabic_department_name}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement x="177" y="20" width="200" height="30" uuid="1b0ac654-0176-454c-8050-df2a4b3ce045"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="MyArial2" size="19" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["تقرير موظفين"]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="10" width="40" height="50" uuid="cb4af86b-1448-4c7d-b0e2-6cdce1f077a3"/>
+				<imageExpression><![CDATA["C:/Users/HP/Downloads/assiut-university-logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="100" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="80" width="80" height="20" forecolor="#3366CC" uuid="e7b91eaa-dbdd-468b-b27d-af90983bf2c1"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#3366CC"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#3366CC"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#3366CC"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#3366CC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="MyArial2" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[التسلسل]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="90" y="80" width="140" height="20" forecolor="#3366CC" uuid="fa444af2-2481-4d97-b862-46a701dd9303"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="MyArial2" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[الاسم]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="80" width="120" height="20" forecolor="#3366CC" uuid="13a650d1-c747-4396-887b-0e5b3822d5f0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="MyArial2" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[الكود]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="80" width="60" height="20" forecolor="#3366CC" uuid="c47bacb5-0343-450b-9dd4-d6b118adce66"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="MyArial2" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[العمر]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="80" width="140" height="20" forecolor="#3366CC" uuid="23531f2c-6756-44f6-b6e7-1a9686e8d6f3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="MyArial2" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[القسم]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="10" width="80" height="30" uuid="5483e818-08af-49cf-a272-9de4e7100247"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="MyArial2" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="10" width="140" height="30" uuid="adbd355e-ebe9-437f-aec3-dc8f79dda171"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="MyArial2" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{arabic_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="10" width="120" height="30" uuid="f27240b5-e24f-4346-8068-48d098d0991c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="MyArial2" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{employee_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="10" width="60" height="30" uuid="810acb23-593d-41cb-a3b2-7ae76aae6c5c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="MyArial2" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{age}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="10" width="140" height="30" uuid="5b927d44-ef1b-4065-80cd-0feeb9f9b369"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="MyArial2" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{arabic_department_name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="64" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="10" y="21" width="113" height="30" uuid="ff4ea10d-fddf-4974-871a-671400d5e32d"/>
+				<textElement>
+					<font fontName="MyArial2" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="20" width="30" height="30" uuid="18d28e75-fac5-4da1-9a82-deb2633ae7ea"/>
+				<textElement>
+					<font fontName="MyArial2" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="21" width="20" height="30" uuid="1b704ee3-cdca-4dbe-8c83-bcc684dc175b"/>
+				<textElement>
+					<font fontName="MyArial2" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="21" width="31" height="30" uuid="ee5a42de-99e0-48d1-8765-da76d97e8c6d"/>
+				<textElement>
+					<font fontName="MyArial2" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["From"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="241" y="20" width="21" height="30" uuid="ab12e6c7-4b0a-4314-98c1-a47693dd1114"/>
+				<textElement>
+					<font fontName="MyArial2" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

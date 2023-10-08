@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AllReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="38bdc261-a446-4264-9527-f41d7e0bde0a">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Company"/>
+	<parameter name="language" class="java.lang.String"/>
+	<parameter name="emp_id" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[    SELECT  e."name" ,e.arabic_name ,e.employee_code ,e.age ,e.marital_status ,e.mobile_number ,e.address ,d.name as department_name,d.arabic_name as arabic_department_name
+FROM employee as e
+         join department d on e.department_id=d.id
+ where $P{emp_id} is null or $P{emp_id} =e.id   
+        
+        
+        
+]]>
+	</queryString>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="name"/>
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="arabic_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="arabic_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="arabic_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="employee_code" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="employee_code"/>
+		<property name="com.jaspersoft.studio.field.label" value="employee_code"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="age" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="age"/>
+		<property name="com.jaspersoft.studio.field.label" value="age"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="marital_status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="marital_status"/>
+		<property name="com.jaspersoft.studio.field.label" value="marital_status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="mobile_number" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="mobile_number"/>
+		<property name="com.jaspersoft.studio.field.label" value="mobile_number"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="address" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="address"/>
+		<property name="com.jaspersoft.studio.field.label" value="address"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="department_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="department_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="department_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="department"/>
+	</field>
+	<field name="arabic_department_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="arabic_department_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="arabic_department_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="department"/>
+	</field>
+	<group name="name">
+		<groupExpression><![CDATA[$F{name}]]></groupExpression>
+	</group>
+	<group name="employee_code">
+		<groupExpression><![CDATA[$F{employee_code}]]></groupExpression>
+	</group>
+	<group name="age">
+		<groupExpression><![CDATA[$F{age}]]></groupExpression>
+	</group>
+	<group name="marital_status">
+		<groupExpression><![CDATA[$F{marital_status}]]></groupExpression>
+	</group>
+	<group name="mobile_number">
+		<groupExpression><![CDATA[$F{mobile_number}]]></groupExpression>
+	</group>
+	<group name="address">
+		<groupExpression><![CDATA[$F{address}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="50">
+			<subreport>
+				<reportElement x="0" y="10" width="530" height="18" uuid="72c5d443-2b44-45eb-8636-151dfadd534b">
+					<printWhenExpression><![CDATA[$P{language}.equals("EN")]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="emp_id">
+					<subreportParameterExpression><![CDATA[$P{emp_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["myReport.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="0" y="10" width="460" height="20" uuid="1fe48f76-4bdd-4150-a6a4-15755b690882">
+					<printWhenExpression><![CDATA[$P{language}.equals("AR")]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="emp_id">
+					<subreportParameterExpression><![CDATA[$P{emp_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["ArabicReport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+</jasperReport>

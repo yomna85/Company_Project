@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+    <changeSet id="1690377095265-1" author="Yomna ">
+        <addColumn tableName="employee">
+            <column name="arabic_name" type="VARCHAR(255)">
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="1690377095265-2" author="Yomna ">
+        <addColumn tableName="department">
+            <column name="arabic_name" type="VARCHAR(255)">
+            </column>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

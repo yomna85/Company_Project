@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+    <changeSet id="1690377095265-1" author="Yomna ">
+        <addColumn tableName="employee">
+            <column name="joining_date" type="DATETIME">
+            </column>
+        </addColumn>
+        <addColumn tableName="employee">
+            <column name="date_of_birth" type="Date">
+            </column>
+        </addColumn>
+        <addColumn tableName="employee">
+            <column name="status" type="VARCHAR(255)">
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="1683466093719-1" author="Yomna">
+        <createTable tableName="vacation_type">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_vacation_Type"/>
+            </column>
+            <column name="english_name" type="VARCHAR(255)"/>
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="1685617934702-2" author="Yomna">
+        <insert tableName="vacation_type">
+            <column name="english_name" value="annual leave"/>
+        </insert>
+        <insert tableName="vacation_type">
+            <column name="english_name" value="sick leave"/>
+        </insert>
+        <insert tableName="vacation_type">
+            <column name="english_name" value="unpaid leave"/>
+        </insert>
+        <insert tableName="vacation_type">
+            <column name="english_name" value="paternal leave"/>
+        </insert>
+        <insert tableName="vacation_type">
+            <column name="english_name" value="maternity leave"/>
+        </insert>
+    </changeSet>
+
+
+    <changeSet id="1683466093718-4" author="Yomna">
+        <createTable tableName="vacation_leave">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_vacation_leave"/>
+            </column>
+            <column name="start_date" type="DATETIME"/>
+            <column name="end_date" type="DATETIME"/>
+            <column name="request_date" type="DATETIME"/>
+            <column name="employee_id" type="INT"/>
+            <column name="vacation_type_id" type="INT"/>
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="1687436577996-2" author="HP (generated)">
+        <addForeignKeyConstraint baseColumnNames="employee_id" baseTableName="vacation_leave"
+                                 constraintName="FK_VACATIONLEAVE_ON_EMPLOYEE" referencedColumnNames="id"
+                                 referencedTableName="employee"/>
+
+        <addForeignKeyConstraint baseColumnNames="vacation_type_id"  baseTableName="vacation_leave"
+                                 constraintName="FK_VACATIONLEAVE_ON_VACATIONTYPE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="vacation_type"/>
+
+    </changeSet>
+
+</databaseChangeLog>
