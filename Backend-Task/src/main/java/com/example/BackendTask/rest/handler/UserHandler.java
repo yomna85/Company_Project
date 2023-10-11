@@ -21,6 +21,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class UserHandler {
     private UserMapper userMapper;
     private PaginationMapper paginationMapper;
     private RoleService roleService;
+    private PasswordEncoder passwordEncoder;
 
     public ResponseEntity<?> getAll(Integer page, Integer size) {
         Page<User> usersPage = userService.getAll(page, size);
@@ -52,10 +54,14 @@ public class UserHandler {
 
     public ResponseEntity<?> save(UserDto dto) {
         User newUser = userMapper.toEntity(dto);
+        newUser.setPassword(passwordEncoder.encode(dto.getPassword()));
         userService.save(newUser);
         UserDto userDto = userMapper.toDto(newUser);
         return ResponseEntity.created(URI.create("/user/" + userDto.getId())).body(userDto);
     }
+
+
+
 
     public ResponseEntity<?> update(Integer id, UserDto userDto) {
         User user = userService.findById(id)

@@ -33,7 +33,7 @@ public class VacationLeaveController {
         return vacationLeaveHandler.getById(id);
     }
 
-    @PutMapping("/{id}/vacation_leave")
+    @PutMapping("/{id}")
     @Operation(summary = "update vacation Leave", description = "this API to update an existing vacation Leave")
     public ResponseEntity<?> update( @RequestBody VacationLeaveDto vacationLeaveDto,
                                     @PathVariable Integer id) {

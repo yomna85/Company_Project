@@ -23,4 +23,5 @@ app:
       expiration-in-ms: 86400000
     refresh:
       expiration-in-ms: 108000000
+    secret: my-very-secret-key
 

@@ -5,29 +5,11 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
 
-    <changeSet id="1657118508733-1" author="yomna">
-        <dropTable tableName="user"/>
-    </changeSet>
 
-    <changeSet id="1657118508733-2" author="yomna">
-        <dropTable tableName="user_role"/>
-    </changeSet>
-
-    <changeSet id="1683466093713-3" author="Yomna">
-        <createTable tableName="user_role">
-            <column name="role_id" type="INT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_user_role"/>
-            </column>
-            <column name="user_id" type="INT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_user_role"/>
-            </column>
-        </createTable>
-    </changeSet>
-
-    <changeSet id="1683466093713-4" author="Yomna">
-        <createTable tableName="user">
+    <changeSet id="1696838032952-1" author="HP">
+        <createTable tableName="users">
             <column autoIncrement="true" name="id" type="INT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_user"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_users"/>
             </column>
             <column name="user_name" type="VARCHAR(255)"/>
             <column name="password" type="VARCHAR(255)"/>
@@ -36,16 +18,17 @@
             <column name="status" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-
-    <changeSet id="1664276477225-37" author="Yomna">
-        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user_role"
-                                 constraintName="fk_user_role_on_role" referencedColumnNames="id"
-                                 referencedTableName="role"/>
-    </changeSet>
-    <changeSet id="1664276477225-38" author="Yomna">
-        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_role"
-                                 constraintName="fk_user_role_on_user" referencedColumnNames="id"
-                                 referencedTableName="user"/>
+    <changeSet id="1696838108054-1" author="HP">
+        <createTable tableName="user_role">
+            <column name="role_id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_user_role"/>
+            </column>
+            <column name="user_id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_user_role"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user_role" constraintName="fk_user_role_on_role" referencedColumnNames="id" referencedTableName="role"/>
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_role" constraintName="fk_user_role_on_user" referencedColumnNames="id" referencedTableName="users"/>
     </changeSet>
 
 </databaseChangeLog>

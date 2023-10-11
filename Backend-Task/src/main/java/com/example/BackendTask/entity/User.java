@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "User")
+@Table(name = "users")
 public class User extends JPAEntity {
 
     @Column(name = "user_name")
