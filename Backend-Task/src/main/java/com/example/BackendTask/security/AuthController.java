@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
 @RestController
 @RequestMapping("/auth")
 @AllArgsConstructor
@@ -26,13 +25,9 @@ public class AuthController {
         return authHandler.login(loginRequest);
     }
 
-    @PostMapping(value = "/logout")
-    public ResponseEntity<?> logout() {
-        return authHandler.logout();
-    }
 
     @PostMapping(value = "/refresh")
-    public ResponseEntity<?> refreshToken(@CookieValue(name = "refreshToken", required = false) String refreshToken) {
+    public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequestDto refreshToken) {
         return authHandler.refresh(refreshToken);
     }
 
@@ -41,5 +36,5 @@ public class AuthController {
     public ResponseEntity<?> getUserInfo(@AuthenticationPrincipal UserDetails userDetails) {
         return authHandler.getUserInfo(userDetails);
     }
-
 }
+

@@ -1,9 +1,11 @@
 package com.example.BackendTask.security;
 
 import com.example.BackendTask.entity.User;
+import com.example.BackendTask.rest.handler.UserHandler;
 import com.example.BackendTask.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -28,13 +30,19 @@ public class AuthHandler {
     private final TokenProvider tokenProvider;
 
     private final CookieUtil cookieUtil;
-    private final UserService userService;
 
     @Value("${app.jwt.token.expiration-in-ms}")
     private Long tokenExpirationMillis;
 
     @Value("${app.jwt.refresh.expiration-in-ms}")
     private Long refreshTokenExpirationMillis;
+
+//    private UsersService usersService;
+
+    @Autowired
+    private UserHandler userHandler;
+
+
 
     public ResponseEntity<?> login(LoginRequestDto loginRequest) {
         log.info("start login for user {}", loginRequest.getUsername());
@@ -49,39 +57,27 @@ public class AuthHandler {
         return ResponseEntity.ok().body(new LoginResponseDto(accessToken, refreshToken));
     }
 
-    public ResponseEntity<?> logout() {
-        log.info("logout current user");
-        HttpHeaders responseHeaders = new HttpHeaders();
-        deleteAccessTokenCookie(responseHeaders);
-        deleteRefreshTokenCookie(responseHeaders);
-        return ResponseEntity.ok().headers(responseHeaders).build();
-    }
 
-    public ResponseEntity<?> refresh(String refreshToken) {
-        Boolean refreshTokenValid = tokenProvider.validateToken(refreshToken);
+    public ResponseEntity<?> refresh(RefreshTokenRequestDto dto) {
+        Boolean refreshTokenValid = tokenProvider.validateToken(dto.getRefreshToken());
         if (!refreshTokenValid) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        String currentUsername = tokenProvider.getUsernameFromToken(refreshToken);
+        String currentUsername = tokenProvider.getUsernameFromToken(dto.getRefreshToken());
 
         String newAccessToken = tokenProvider.generateAccessToken(currentUsername);
         HttpHeaders responseHeaders = new HttpHeaders();
         addAccessTokenCookie(responseHeaders, newAccessToken);
 
-        return ResponseEntity.ok().headers(responseHeaders).build();
+        return ResponseEntity.ok().body(new LoginResponseDto(newAccessToken, dto.getRefreshToken()));
     }
 
 
     public ResponseEntity<?> getUserInfo(UserDetails userDetails) {
-        UserDto userDto = UserDto.builder()
-                .username(userDetails.getUsername())
-                .authorities((Set<GrantedAuthority>) userDetails.getAuthorities())
-                .build();
-        // TODO HERE WE Need to Add  temporary Password Impl
+        UserDto userDto = UserDto.builder().username(userDetails.getUsername()).authorities((Set<GrantedAuthority>) userDetails.getAuthorities()).build();
+
         return ResponseEntity.ok(userDto);
-
-
     }
 
     private void addAccessTokenCookie(HttpHeaders httpHeaders, String token) {
@@ -95,9 +91,4 @@ public class AuthHandler {
     private void addRefreshTokenCookie(HttpHeaders httpHeaders, String token) {
         httpHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.createRefreshTokenCookie(token, refreshTokenExpirationMillis).toString());
     }
-
-    private void deleteRefreshTokenCookie(HttpHeaders httpHeaders) {
-        httpHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.deleteRefreshTokenCookie().toString());
-    }
-
 }

@@ -7,13 +7,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class CookieUtil {
 
-    private static final String ACCESS_TOKEN = "accessToken";
-    private static final String REFRESH_TOKEN = "refreshToken";
-
     public HttpCookie createAccessTokenCookie(String token, Long duration) {
         //TODO:add encryption/decryption
         //TODO:add secure= true
-        return ResponseCookie.from(ACCESS_TOKEN, token)
+        return ResponseCookie.from("accessToken", token)
                 .maxAge(duration / 1000)
                 .httpOnly(true)
                 .path("/")
@@ -23,7 +20,7 @@ public class CookieUtil {
     public HttpCookie createRefreshTokenCookie(String token, Long duration) {
         //TODO:add encryption/decryption
         //TODO:add secure= true
-        return ResponseCookie.from(REFRESH_TOKEN, token)
+        return ResponseCookie.from("refreshToken", token)
                 .maxAge(duration / 1000)
                 .httpOnly(true)
                 .path("/")
@@ -31,19 +28,12 @@ public class CookieUtil {
     }
 
     public HttpCookie deleteAccessTokenCookie() {
-        return ResponseCookie.from(ACCESS_TOKEN, null)
-                .maxAge(0)
-                .httpOnly(true)
-                .path("/")
-                .build();
-    }
-
-    public HttpCookie deleteRefreshTokenCookie() {
-        return ResponseCookie.from(REFRESH_TOKEN, null)
+        return ResponseCookie.from("accessToken", null)
                 .maxAge(0)
                 .httpOnly(true)
                 .path("/")
                 .build();
     }
 }
+
 

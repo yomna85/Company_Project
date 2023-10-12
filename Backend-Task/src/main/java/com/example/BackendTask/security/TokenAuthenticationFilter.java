@@ -36,10 +36,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         try {
-            log.info("validate token");
-            String jwt = getJwtToken(httpServletRequest, true);
+            String jwt = getJwtToken(httpServletRequest, false);
             if (tokenProvider.validateToken(jwt)) {
-                log.info("token is valid ! ");
                 String username = tokenProvider.getUsernameFromToken(jwt);
                 UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
@@ -47,7 +45,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception ex) {
-            log.error("error in validating token", ex);
+            ex.printStackTrace();
         }
 
         filterChain.doFilter(httpServletRequest, httpServletResponse);
@@ -66,15 +64,9 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private String getJwtFromCookie(HttpServletRequest request) {
-        log.info("loading cookies from request");
         Cookie[] cookies = request.getCookies();
-        if (cookies == null) {
-            log.info("no cookies found in the request");
-            return null;
-        }
         for (Cookie cookie : cookies) {
             if ("accessToken".equals(cookie.getName())) {
-                log.info("accessToken cookie has been found");
                 String accessToken = cookie.getValue();
                 if (accessToken == null) return null;
 
